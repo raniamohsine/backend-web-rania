@@ -8,14 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('faqs', function (Blueprint $table) {
+        Schema::create('interest_user', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('faq_category_id')->constrained()->cascadeOnDelete();
-
-            $table->string('question');
-            $table->text('answer');
-            $table->boolean('is_visible')->default(true);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('interest_id')->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });
@@ -23,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('faqs');
+        Schema::dropIfExists('interest_user');
     }
 };

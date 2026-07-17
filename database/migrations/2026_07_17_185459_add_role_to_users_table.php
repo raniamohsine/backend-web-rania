@@ -8,17 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('interests', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('name');
-
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role')->default('user')->after('password');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('interests');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
     }
 };
