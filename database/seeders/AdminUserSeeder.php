@@ -2,16 +2,27 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        //
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@ehb.be',
+            'password' => Hash::make('Password!321'),
+            'role' => 'admin',
+        ]);
+
+        Profile::create([
+            'user_id' => $admin->id,
+            'study_program' => 'Backend Web',
+            'bio' => 'Administrator van StudentHub.',
+            'profile_photo' => null,
+        ]);
     }
 }
