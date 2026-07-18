@@ -17,7 +17,7 @@
 
             <nav class="space-x-4">
                 <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600">Home</a>
-
+                <a href="{{ route('news.index') }}" class="text-gray-700 hover:text-blue-600">Nieuws</a>
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
 
