@@ -8,6 +8,8 @@ class Profile extends Model
 {
     protected $fillable = [
         'user_id',
+        'username',
+        'birthday',
         'study_program',
         'bio',
         'profile_photo',

@@ -9,7 +9,9 @@ class NewsItem extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'image',
         'content',
+        'published_at',
         'is_published',
     ];
 

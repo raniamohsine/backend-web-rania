@@ -34,6 +34,8 @@ class StudentHubSeeder extends Seeder
 
         Profile::create([
             'user_id' => $student1->id,
+            'username' => 'sara_dev',
+            'birthday' => '2004-05-12',
             'study_program' => 'Graduaat Programmeren',
             'bio' => 'Ik ben geïnteresseerd in webdevelopment en databases.',
             'profile_photo' => null,
@@ -41,6 +43,8 @@ class StudentHubSeeder extends Seeder
 
         Profile::create([
             'user_id' => $student2->id,
+            'username' => 'yassin_backend',
+            'birthday' => '2003-09-20',
             'study_program' => 'Backend Web',
             'bio' => 'Ik leer graag werken met Laravel en PHP.',
             'profile_photo' => null,
@@ -64,14 +68,18 @@ class StudentHubSeeder extends Seeder
         NewsItem::create([
             'user_id' => $admin->id,
             'title' => 'Welkom bij StudentHub',
+            'image' => null,
             'content' => 'StudentHub is een platform waar studenten nieuws kunnen lezen, FAQ’s kunnen bekijken en hun profiel kunnen beheren.',
+            'published_at' => '2026-07-17',
             'is_published' => true,
         ]);
 
         NewsItem::create([
             'user_id' => $admin->id,
             'title' => 'Nieuwe FAQ beschikbaar',
+            'image' => null,
             'content' => 'Er zijn nieuwe veelgestelde vragen toegevoegd over accounts en profielen.',
+            'published_at' => '2026-07-18',
             'is_published' => true,
         ]);
 
