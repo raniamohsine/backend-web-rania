@@ -1,28 +1,20 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Http\Middleware;
 
-use App\Models\User;
-use App\Models\Profile;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class AdminUserSeeder extends Seeder
+class AdminMiddleware
 {
-    public function run(): void
+    public function handle(Request $request, Closure $next): Response
     {
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@ehb.be',
-            'password' => Hash::make('Password!321'),
-            'role' => 'admin',
-        ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return $next($request);
+        }
 
-        Profile::create([
-            'user_id' => $admin->id,
-            'study_program' => 'Backend Web',
-            'bio' => 'Administrator van StudentHub.',
-            'profile_photo' => null,
-        ]);
+        return redirect()->route('dashboard')
+            ->with('error', 'Je hebt geen toegang tot deze pagina.');
     }
 }
