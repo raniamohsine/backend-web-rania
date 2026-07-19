@@ -23,7 +23,13 @@
                 <a href="{{ route('profiles.index') }}" class="text-gray-700 hover:text-blue-600">Profielen</a>
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
-
+                    <a href="{{ route('student-profile.edit') }}" class="text-gray-700 hover:text-blue-600">Profiel bewerken</a>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-gray-700 hover:text-blue-600">
+                            Logout
+                        </button>
+                    </form>
                     @if (auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="text-gray-700 hover:text-blue-600">Admin</a>
                     @endif
