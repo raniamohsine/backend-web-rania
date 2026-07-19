@@ -20,6 +20,7 @@
                 <a href="{{ route('news.index') }}" class="text-gray-700 hover:text-blue-600">Nieuws</a>
                 <a href="{{ route('faq.index') }}" class="text-gray-700 hover:text-blue-600">FAQ</a>
                 <a href="{{ route('contact.create') }}" class="text-gray-700 hover:text-blue-600">Contact</a>
+                <a href="{{ route('profiles.index') }}" class="text-gray-700 hover:text-blue-600">Profielen</a>
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
 
