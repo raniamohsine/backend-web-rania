@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): RedirectResponse
     {
-        return view('dashboard');
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('student-profile.edit');
     }
 }
