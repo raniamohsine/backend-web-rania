@@ -3,39 +3,47 @@
 @section('title', 'Studentenprofielen - StudentHub')
 
 @section('content')
-    <section class="bg-white rounded-lg shadow p-8">
-        <h1 class="text-3xl font-bold mb-6">
-            Studentenprofielen
-        </h1>
+    <div class="page-wrapper">
 
-        <p class="text-gray-700 mb-8">
-            Bekijk de publieke profielen van gebruikers op StudentHub.
-        </p>
+        <section class="page-hero">
+            <p class="page-label">
+                Studentenprofielen
+            </p>
 
-        <div class="grid md:grid-cols-3 gap-6">
+            <h1>
+                Ontdek studenten
+            </h1>
+
+            <p>
+                Bekijk publieke profielen van gebruikers op StudentHub en ontdek hun opleiding, interesses en korte voorstelling.
+            </p>
+        </section>
+
+        <section class="page-card">
             @forelse ($users as $user)
-                <article class="border rounded-lg p-6">
-                    <h2 class="text-xl font-semibold mb-2">
+                <article class="inner-card">
+                    <h2 style="font-size: 26px; margin-bottom: 8px;">
                         {{ $user->profile->username ?? $user->name }}
                     </h2>
 
-                    <p class="text-sm text-gray-500 mb-3">
+                    <p style="color: #2563eb; font-weight: bold; margin-bottom: 12px;">
                         {{ $user->profile->study_program ?? 'Geen opleiding ingevuld' }}
                     </p>
 
-                    <p class="text-gray-700 mb-4">
+                    <p style="color: #334155; margin-bottom: 18px;">
                         {{ $user->profile->bio ?? 'Nog geen beschrijving.' }}
                     </p>
 
-                    <a href="{{ route('profiles.show', $user) }}" class="text-blue-600 hover:underline">
+                    <a href="{{ route('profiles.show', $user) }}" class="secondary-action">
                         Bekijk profiel
                     </a>
                 </article>
             @empty
-                <p class="text-gray-600">
+                <article class="inner-card">
                     Er zijn nog geen profielen.
-                </p>
+                </article>
             @endforelse
-        </div>
-    </section>
+        </section>
+
+    </div>
 @endsection

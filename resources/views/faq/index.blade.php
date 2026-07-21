@@ -3,51 +3,61 @@
 @section('title', 'FAQ - StudentHub')
 
 @section('content')
-    <section class="bg-white rounded-lg shadow p-8">
-        <h1 class="text-3xl font-bold mb-6">
-            Veelgestelde vragen
-        </h1>
+    <div class="page-wrapper">
 
-        <p class="text-gray-700 mb-8">
-            Hier vind je antwoorden op veelgestelde vragen over StudentHub.
-        </p>
+        <section class="page-hero">
+            <p class="page-label">
+                Veelgestelde vragen
+            </p>
 
-        <div class="space-y-6">
+            <h1>
+                FAQ
+            </h1>
+
+            <p>
+                Vind snel antwoorden op veelgestelde vragen over accounts, profielen en het gebruik van StudentHub.
+            </p>
+        </section>
+
+        <section class="page-card">
             @forelse ($faqCategories as $category)
-                <div class="border rounded-lg p-6">
-                    <h2 class="text-xl font-semibold mb-2">
+                <article class="inner-card">
+                    <p class="page-label" style="color: #2563eb; opacity: 1;">
+                        FAQ categorie
+                    </p>
+
+                    <h2 style="font-size: 26px; margin-bottom: 10px;">
                         {{ $category->name }}
                     </h2>
 
-                    <p class="text-gray-600 mb-4">
+                    <p style="color: #64748b; margin-bottom: 22px;">
                         {{ $category->description }}
                     </p>
 
-                    <div class="space-y-4">
-                        @forelse ($category->faqs as $faq)
-                            @if ($faq->is_visible)
-                                <div>
-                                    <h3 class="font-semibold">
-                                        {{ $faq->question }}
-                                    </h3>
+                    @forelse ($category->faqs as $faq)
+                        @if ($faq->is_visible)
+                            <div style="background: white; border-radius: 18px; padding: 20px; margin-bottom: 14px; border: 1px solid #e5e7eb;">
+                                <h3 style="font-size: 19px; margin-bottom: 8px;">
+                                    {{ $faq->question }}
+                                </h3>
 
-                                    <p class="text-gray-700">
-                                        {{ $faq->answer }}
-                                    </p>
-                                </div>
-                            @endif
-                        @empty
-                            <p class="text-gray-600">
-                                Er zijn nog geen vragen in deze categorie.
-                            </p>
-                        @endforelse
-                    </div>
-                </div>
+                                <p style="color: #334155;">
+                                    {{ $faq->answer }}
+                                </p>
+                            </div>
+                        @endif
+                    @empty
+                        <p>
+                            Er zijn nog geen vragen in deze categorie.
+                        </p>
+                    @endforelse
+                </article>
             @empty
-                <p class="text-gray-600">
+                <article class="inner-card">
                     Er zijn nog geen FAQ categorieën.
-                </p>
+                </article>
             @endforelse
-        </div>
-    </section>
+        </section>
+
+    </div>
 @endsection

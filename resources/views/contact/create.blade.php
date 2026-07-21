@@ -3,106 +3,120 @@
 @section('title', 'Contact - StudentHub')
 
 @section('content')
-    <section class="bg-white rounded-lg shadow p-8">
-        <h1 class="text-3xl font-bold mb-6">
-            Contact
-        </h1>
+    <div class="page-wrapper">
 
-        <p class="text-gray-700 mb-6">
-            Heb je een vraag? Vul het formulier in en de administrator ontvangt je bericht.
-        </p>
+        <section class="page-hero">
+            <p class="page-label">
+                Contact
+            </p>
 
-        @if (session('success'))
-            <div class="mb-6 p-4 bg-green-100 text-green-700 rounded">
-                {{ session('success') }}
-            </div>
-        @endif
+            <h1>
+                Neem contact op
+            </h1>
 
-        @if ($errors->any())
-            <div class="mb-6 p-4 bg-red-100 text-red-700 rounded">
-                <p class="font-semibold">
+            <p>
+                Heb je een vraag over StudentHub? Vul het formulier in en de administrator ontvangt je bericht.
+            </p>
+        </section>
+
+        <section class="page-card">
+            @if (session('success'))
+                <div class="success-box">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="error-box">
                     Controleer de ingevulde gegevens.
-                </p>
-            </div>
-        @endif
+                </div>
+            @endif
 
-        <form method="POST" action="{{ route('contact.store') }}" class="space-y-6">
-            @csrf
+            <form method="POST" action="{{ route('contact.store') }}">
+                @csrf
 
-            <div>
-                <label for="name" class="block font-medium text-sm text-gray-700">
-                    Naam
-                </label>
+                <div style="margin-bottom: 24px;">
+                    <button type="submit" class="primary-action">
+                        Bericht verzenden
+                    </button>
+                </div>
 
-                <input id="name"
-                       name="name"
-                       type="text"
-                       value="{{ old('name') }}"
-                       required
-                       maxlength="255"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <div>
+                    <label for="name" class="form-label">
+                        Naam
+                    </label>
 
-                @error('name')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                    <input id="name"
+                           name="name"
+                           type="text"
+                           value="{{ old('name') }}"
+                           required
+                           maxlength="255"
+                           class="form-input">
 
-            <div>
-                <label for="email" class="block font-medium text-sm text-gray-700">
-                    E-mail
-                </label>
+                    @error('name')
+                        <p style="color: #dc2626;">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                <input id="email"
-                       name="email"
-                       type="email"
-                       value="{{ old('email') }}"
-                       required
-                       maxlength="255"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <div>
+                    <label for="email" class="form-label">
+                        E-mail
+                    </label>
 
-                @error('email')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                    <input id="email"
+                           name="email"
+                           type="email"
+                           value="{{ old('email') }}"
+                           required
+                           maxlength="255"
+                           class="form-input">
 
-            <div>
-                <label for="subject" class="block font-medium text-sm text-gray-700">
-                    Onderwerp
-                </label>
+                    @error('email')
+                        <p style="color: #dc2626;">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                <input id="subject"
-                       name="subject"
-                       type="text"
-                       value="{{ old('subject') }}"
-                       required
-                       maxlength="255"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <div>
+                    <label for="subject" class="form-label">
+                        Onderwerp
+                    </label>
 
-                @error('subject')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                    <input id="subject"
+                           name="subject"
+                           type="text"
+                           value="{{ old('subject') }}"
+                           required
+                           maxlength="255"
+                           class="form-input">
 
-            <div>
-                <label for="message" class="block font-medium text-sm text-gray-700">
-                    Bericht
-                </label>
+                    @error('subject')
+                        <p style="color: #dc2626;">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                <textarea id="message"
-                          name="message"
-                          rows="6"
-                          required
-                          maxlength="2000"
-                          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('message') }}</textarea>
+                <div>
+                    <label for="message" class="form-label">
+                        Bericht
+                    </label>
 
-                @error('message')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                    <textarea id="message"
+                              name="message"
+                              rows="6"
+                              required
+                              maxlength="2000"
+                              class="form-input">{{ old('message') }}</textarea>
 
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
-                Verzenden
-            </button>
-        </form>
-    </section>
+                    @error('message')
+                        <p style="color: #dc2626;">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <button type="submit" class="primary-action">
+                    Bericht verzenden
+                </button>
+            </form>
+        </section>
+
+    </div>
 @endsection
