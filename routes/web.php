@@ -8,8 +8,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\FaqCategoryController as AdminFaqCategoryController;
 use App\Http\Controllers\Admin\NewsItemController as AdminNewsItemController;
+use App\Http\Controllers\Admin\FaqCategoryController as AdminFaqCategoryController;
+use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +47,11 @@ Route::middleware(['auth', 'admin'])
 
         Route::resource('news', AdminNewsItemController::class)
             ->except(['show']);
+
         Route::resource('faq-categories', AdminFaqCategoryController::class)
+            ->except(['show']);
+
+        Route::resource('faqs', AdminFaqController::class)
             ->except(['show']);
     });
 
