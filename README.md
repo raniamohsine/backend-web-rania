@@ -88,6 +88,24 @@ Belangrijke lijnen:
 - Publieke profielen kunnen ook bekeken worden door bezoekers die niet ingelogd zijn.
 - Een gebruiker kan zijn eigen profielgegevens aanpassen en een profielfoto uploaden.
 
+### Profiel en profielfoto
+
+Profielgegevens worden beheerd in:
+
+`app/Http/Controllers/StudentProfileController.php`
+
+Belangrijke lijnen:
+
+- lijn 46: valideert de profielfoto als afbeelding met maximaal 2048 KB
+- lijn 63: `store('profiles', 'public')` slaat de profielfoto op de server op
+- lijn 74: `sync(...)` koppelt de geselecteerde interesses aan de gebruiker
+
+Een gebruiker kan zijn username, verjaardag, studierichting, bio, profielfoto en interesses aanpassen.
+
+De profielfoto wordt opgeslagen in:
+
+`storage/app/public/profiles`
+
 ### Nieuws
 
 - Model: `app/Models/NewsItem.php`
@@ -126,13 +144,20 @@ Belangrijke lijnen in `FaqController.php`:
 
 ### Eloquent relaties
 
-Het project gebruikt verschillende relaties tussen de modellen:
+Het project gebruikt verschillende Eloquent relaties.
 
-- User ↔ Profile
-- FAQ categorie → FAQ vragen
-- User ↔ Interests
+One-to-many:
 
-Hierdoor worden gerelateerde gegevens via Eloquent met elkaar verbonden.
+`app/Models/FaqCategory.php`
+
+- lijn 16: `hasMany(Faq::class)` betekent dat één FAQ categorie meerdere FAQ vragen kan hebben
+
+Andere relaties in:
+
+`app/Models/User.php`
+
+- lijn 35: `hasOne(Profile::class)` betekent dat één gebruiker één profiel heeft
+- lijn 45: `belongsToMany(Interest::class)` betekent dat een gebruiker meerdere interesses kan hebben en een interesse bij meerdere gebruikers kan horen
 
 ### Migrations en seeders
 
@@ -160,6 +185,28 @@ Voorbeelden:
 
 Laravel Blade en CSRF-bescherming worden gebruikt voor de formulieren.
 
+### Views en beveiliging
+
+Het project gebruikt meerdere Blade layouts:
+
+- `resources/views/layouts/app.blade.php`
+- `resources/views/layouts/guest.blade.php`
+- `resources/views/layouts/public.blade.php`
+
+Het project gebruikt ook verschillende Blade components uit:
+
+`resources/views/components/`
+
+Voorbeelden zijn buttons, inputvelden, dropdowns, modals en navigatielinks.
+
+Control structures worden in verschillende Blade views gebruikt met `@if`.
+
+CSRF-beveiliging wordt toegepast op formulieren met `@csrf`.
+
+XSS-beveiliging wordt toegepast door gegevens met Blade `{{ }}` weer te geven. Blade escaped deze gegevens automatisch.
+
+Client-side validatie wordt toegepast met HTML-attributen zoals `required` in verschillende formulieren.
+
 ### Routes en MVC
 
 De applicatie volgt de MVC-structuur van Laravel:
@@ -168,6 +215,45 @@ De applicatie volgt de MVC-structuur van Laravel:
 - Controllers verwerken de logica.
 - Blade views tonen de pagina's.
 - Routes verbinden URL's met controllers en pagina's.
+
+De routes staan in:
+
+`routes/web.php`
+
+Belangrijke lijnen:
+
+- lijn 42: groepeert de adminroutes met `auth` en `admin` middleware
+- lijn 49: gebruikt een resource route voor de News CRUD
+- lijn 62: groepeert routes die alleen beschikbaar zijn voor ingelogde gebruikers met `auth`
+
+Voor CRUD-operaties worden resource routes gebruikt voor nieuws, FAQ-categorieën, FAQ-vragen en gebruikers.
+
+### Contactformulier en e-mail
+
+Het contactformulier wordt verwerkt in:
+
+`app/Http/Controllers/ContactController.php`
+
+Belangrijke lijnen:
+
+- lijn 25: `ContactMessage::create($validated)` slaat het contactbericht op in de database
+- lijn 27: `Mail::raw(...)` maakt de e-mail aan
+- lijn 33: verstuurt het bericht naar `admin@ehb.be`
+
+De gegevens van het contactformulier worden eerst gevalideerd en daarna opgeslagen en doorgestuurd naar de admin.
+
+### Authenticatie
+
+De authenticatie gebruikt Laravel Breeze.
+
+In:
+
+`resources/views/auth/login.blade.php`
+
+- lijn 30: `name="remember"` maakt de optie Remember me mogelijk
+- lijn 36: `Route::has('password.request')` controleert of de route voor vergeten wachtwoorden beschikbaar is
+
+De applicatie ondersteunt dus login, logout, registratie, Remember me en wachtwoord reset.
 
 ## Admin account
 
